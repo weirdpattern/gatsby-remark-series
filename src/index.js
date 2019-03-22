@@ -1,23 +1,10 @@
-import generateExternalTOC from "./generate-external-toc";
-import generateInlineTOC from "./generate-inline-toc";
+import generateExternalTOC from "./utils/generate-external-toc";
+import generateInlineTOC from "./utils/generate-inline-toc";
 
-import { DefaultSettings } from "./constants";
-
-/**
- * @typedef {object} ExternalTOCOptions
- */
-
-/**
- * @typedef {object} InlineTOCOptions
- */
+import { resolveOptions } from "./utils/options";
 
 /**
  * @typedef {object} PluginOptions
- * @property {string} field
- *    the remark field to be used to identified posts in a series.
- * @property {ExternalTOCOptions} external
- *    the options to be used for external tocs.
- * @property {InlineTOCOptions} inline the options to be used for inline tocs.
  */
 
 /**
@@ -27,11 +14,9 @@ import { DefaultSettings } from "./constants";
  * @returns {*} the markdown ast.
  */
 export default async (context, options) => {
-  const settings = Object.assign({}, DefaultSettings, options);
+  const resolvedOptions = resolveOptions(options);
 
-  if (options.external != null) {
-    return await generateExternalTOC(context, settings);
-  } else {
-    return await generateInlineTOC(context, settings);
-  }
+  return options.external != null
+    ? await generateExternalTOC(context, resolvedOptions)
+    : await generateInlineTOC(context, resolvedOptions);
 };

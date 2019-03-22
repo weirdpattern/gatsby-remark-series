@@ -60,7 +60,7 @@
     "standard-version": "^5.0.2"
   },
   "dependencies": {
-    "babel-plugin-transform-runtime": "^6.23.0"
+    "lodash.defaultsdeep": "^4.6.0"
   },
   "peerDependencies": {
     "gatsby": "*",
