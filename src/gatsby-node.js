@@ -1,50 +1,75 @@
-import { resolveSeriesPath } from "./index/options";
+import { resolveOptions, resolveSeriesPath } from "./misc/utils";
 
 /** @inheritdoc */
-export async function createPages(
-  { graphql, pathPrefix, actions: { createPage } },
-  options
+export function createPages(
+  { getNodes, pathPrefix, actions: { createPage } },
+  pluginOptions
 ) {
+  const options = resolveOptions(pluginOptions);
   if (options.render.mode !== "external") return;
 
-  const result = await graphql(
-    `
-      {
-        series: allMarkdownRemark {
-          edges {
-            node {
-              frontmatter {
-                date
-                title
-                ${options.draftField}
-                ${options.orderField}
-                ${options.seriesField}
-              }
-            }
-          }
-        }
-      }
-    `
-  );
+  const series = getNodes()
+    .filter(
+      node =>
+        node.internal.type === "MarkdownRemark" && options.series(node) != null
+    )
+    .reduce((map, node) => {
+      const name = options.series(node);
+      if (name == null) return map;
 
-  const series = result.data.all.edges.reduce((map, node) => {
-    const name = node.frontmatter.series;
+      map[name] = map[name] || [];
+      map[name].push({
+        title: node.frontmatter.title,
+        slug: options.slug(node),
+        date: options.date(node),
+        draft: options.draft(node),
+        order: options.order(node),
+        series: name
+      });
 
-    if (name == null) return map;
-
-    map[name] = map[name] || [];
-    map[name].push({ ...node.fields.slug, ...node.frontmatter });
-
-    return map;
-  }, {});
+      return map;
+    }, {});
 
   Object.keys(series).map(key => {
+    const slug = resolveSeriesPath(
+      options.slug({ frontmatter: { title: key } }),
+      pathPrefix,
+      options.render.pathPrefix
+    );
+
     createPage({
-      path: resolveSeriesPath(key, pathPrefix, options.pathPrefix),
-      component: options.externalLayout,
+      path: slug,
+      component: options.render.externalLayout,
       context: {
+        slug,
         items: series[key]
       }
     });
   });
+}
+
+/** @inheritdoc */
+export function onCreateNode(
+  { node, getNodes, createContentDigest },
+  pluginOptions
+) {
+  const options = resolveOptions(pluginOptions);
+
+  if (node.internal.type === "MarkdownRemark" && options.series(node) != null) {
+    // get every item in the series, but the current one
+    const series = options.series(node);
+    const siblings = getNodes().filter(
+      sibling =>
+        sibling.internal.type === "MarkdownRemark" &&
+        options.series(sibling) === series &&
+        sibling.id !== node.id
+    );
+
+    // force every item in the series to refresh
+    for (const sibling of siblings) {
+      sibling.internal.contentDigest = createContentDigest(
+        new Date().getTime()
+      );
+    }
+  }
 }

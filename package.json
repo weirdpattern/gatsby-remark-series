@@ -14,7 +14,10 @@
   "bugs": {
     "url": "https://github.com/weirdpattern/gatsby-remark-series-toc/issues"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "gatsby",
     "gatsbyjs",
@@ -23,11 +26,12 @@
     "remark",
     "series",
     "toc",
+    "table of content",
     "plugin"
   ],
   "scripts": {
-    "build": "rimraf gatsby-ssr.js index.js && cross-env BABEL_ENV=production babel src --out-dir .",
-    "clean": "npx rimraf node_modules",
+    "build": "rimraf dist && babel src --out-dir dist",
+    "clean": "npx rimraf node_modules dist build",
     "format": "prettier --write ./{src,specs}/{,**}/*.js",
     "lint": "eslint ./{src,specs}/{,**}/*.js",
     "test": "jest",
@@ -42,8 +46,6 @@
     "babel-plugin-add-module-exports": "^1.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "cross-env": "^5.2.0",
     "eslint": "^5.15.3",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-filenames": "^1.3.2",
@@ -54,13 +56,12 @@
     "jest": "^24.5.0",
     "lint-staged": "^8.1.5",
     "prettier": "^1.16.4",
-    "react": "^16.8.4",
-    "remark": "^10.0.1",
     "rimraf": "^2.6.3",
     "standard-version": "^5.0.2"
   },
   "dependencies": {
-    "lodash.defaultsdeep": "^4.6.0"
+    "lodash.defaultsdeep": "^4.6.0",
+    "lodash.kebabcase": "^4.1.1"
   },
   "peerDependencies": {
     "gatsby": "*",
@@ -72,20 +73,14 @@
         "env",
         {
           "targets": {
-            "browsers": [
-              "last 4 versions",
-              "safari >= 7",
-              "ie >= 9"
-            ],
+            "node": 6,
             "uglify": true
           }
         }
-      ],
-      "react"
+      ]
     ],
     "plugins": [
       "add-module-exports",
-      "transform-runtime",
       "transform-object-rest-spread"
     ]
   },

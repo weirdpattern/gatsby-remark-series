@@ -1,22 +1,16 @@
-import generateExternalTOC from "./utils/generate-external-toc";
-import generateInlineTOC from "./utils/generate-inline-toc";
-
-import { resolveOptions } from "./utils/options";
-
-/**
- * @typedef {object} PluginOptions
- */
+import { external, inline } from "./misc/table-of-content";
+import { resolveOptions } from "./misc/utils";
 
 /**
  * Handles the markdown AST.
  * @param {RemarkPluginContext} context the remark plugin context.
- * @param {PluginOptions} options the options of the plugin.
+ * @param {PluginOptions} pluginOptions the options of the plugin.
  * @returns {*} the markdown ast.
  */
-export default async (context, options) => {
-  const resolvedOptions = resolveOptions(options);
+export default (context, pluginOptions) => {
+  const options = resolveOptions(pluginOptions);
 
-  return options.external != null
-    ? await generateExternalTOC(context, resolvedOptions)
-    : await generateInlineTOC(context, resolvedOptions);
+  return options.render.mode === "external"
+    ? external(context, options)
+    : inline(context, options);
 };
