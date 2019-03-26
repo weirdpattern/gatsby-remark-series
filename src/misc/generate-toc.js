@@ -1,17 +1,14 @@
-const localCache = {};
-
 import { resolveSeriesPath } from "./utils";
+
+const localCache = {};
 
 /**
  * Validates the context of the request.
- * @param {string} mode the mode to be used.
  * @param {GatsbyContext} context the gatsby context to be used.
  * @param {PluginOptions} options the plugin options to be used.
  * @returns {boolean} true if the context is valid; false otherwise.
  */
-function validContext(mode, context, options) {
-  if (options.render.mode !== mode) return false;
-
+function validContext(context, options) {
   const series = options.series(context.markdownNode);
   if (series == null) return false;
 
@@ -20,19 +17,23 @@ function validContext(mode, context, options) {
 
 /**
  * Renders the table of content at the top of the page.
- * @param {object} values the template values to be used.
+ * @param {object} context the template context to be used.
  * @returns {void}
  */
-function renderTop(values) {
+function renderTop({ options, ...context }) {
   if (
     options.render.placeholder === "top" ||
     options.render.placeholder === "both"
   ) {
-    markdownAST.children.unshift({
+    context.markdownAST.children.unshift({
       type: "html",
       value: options.template({
         placeholder: "top",
-        ...values
+        name: context.name,
+        slug: context.slug,
+        items: context.items,
+        pluginOptions: options,
+        markdownNode: context.markdownNode
       })
     });
   }
@@ -40,67 +41,45 @@ function renderTop(values) {
 
 /**
  * Renders the table of content at the bottom of the page.
- * @param {object} values the template values to be used.
+ * @param {object} context the template values to be used.
  * @returns {void}
  */
-function renderBottom(values) {
+function renderBottom({ options, ...context }) {
   if (
     options.render.placeholder === "bottom" ||
     options.render.placeholder === "both"
   ) {
-    markdownAST.children.push({
+    context.markdownAST.children.push({
       type: "html",
       value: options.render.template({
         placeholder: "bottom",
-        ...values
+        name: context.name,
+        slug: context.slug,
+        items: context.items,
+        pluginOptions: options,
+        markdownNode: context.markdownNode
       })
     });
   }
 }
 
 /**
- * Renders the table of content as an external link.
+ * Gets all nodes associated to a series.
  * @param {GatsbyContext} context the gatsby context to be used.
  * @param {PluginOptions} options the plugin options to be used.
- * @returns {AST} the modified markdownAST.
+ * @returns {Array<object>} the nodes in the series.
  */
-export function external(context, options) {
-  if (!validContext("external", context, options)) return context.markdownAST;
-
-  const { markdownAST, markdownNode, pathPrefix } = context;
-
-  const series = options.series(markdownNode);
-  const path = resolveSeriesPath(
-    options.slug({ frontmatter: { title: series } }),
-    pathPrefix,
-    options.pathPrefix
-  );
-
-  renderTop({ items, slug: path, name: series, ...context });
-  renderBottom({ items, slug: path, name: series, ...context });
-
-  return markdownAST;
-}
-
-/**
- * Renders the table of content as an inline element.
- * @param {GatsbyContext} context the gatsby context to be used.
- * @param {PluginOptions} options the plugin options to be used.
- * @returns {AST} the modified markdownAST.
- */
-export function inline(context, options) {
-  if (!validContext("inline", context, options)) return context.markdownAST;
-
-  const { markdownAST, markdownNode, createContentDigest, getNodes } = context;
-
-  const series = options.slug(markdownNode);
-  const identifier = `series--${createContentDigest(series)}`;
+function getSeriesItems(context, options) {
+  const series = options.series(context.markdownNode);
+  const cacheKey = context.createContentDigest(series);
 
   // cache gets cleared on every build, but that should be enough
   // to prevent siblings from unnecessarily rebuilding the list.
-  let items = localCache[identifier];
+  let items = localCache[cacheKey];
   if (items == null) {
-    items = getNodes()
+    items = context
+      .getNodes()
+
       // gets markdown remark elements that have a series
       .filter(
         node =>
@@ -148,11 +127,34 @@ export function inline(context, options) {
         return left.title.localCompare(right.title);
       });
 
-    localCache[identifier] = items;
+    localCache[cacheKey] = items;
   }
 
-  renderTop({ items, name: series, ...context });
-  renderBottom({ items, name: series, ...context });
+  return items;
+}
+
+/**
+ * Renders the table of content.
+ * @param {GatsbyContext} context the gatsby context to be used.
+ * @param {PluginOptions} options the plugin options to be used.
+ * @returns {AST} the modified markdownAST.
+ */
+export default (context, options) => {
+  if (!validContext(context, options)) return context.markdownAST;
+
+  const { markdownAST, markdownNode, pathPrefix } = context;
+
+  const series = options.series(markdownNode);
+  const items = getSeriesItems(context, options);
+
+  const path = resolveSeriesPath(
+    options.toSlug(series),
+    pathPrefix,
+    options.pathPrefix
+  );
+
+  renderTop({ options, items, name: series, slug: path, ...context });
+  renderBottom({ options, items, name: series, slug: path, ...context });
 
   return markdownAST;
-}
+};

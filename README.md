@@ -9,24 +9,24 @@ draft: true
 series: "browsers"
 category: "web"
 tags:
-    - web
-    - css
-    - ui
-    - components
-    - checkbox
-    - radio button    
+  - web
+  - css
+  - ui
+  - components
+  - checkbox
+  - radio button
 ---
 
 {
-  options: {
-    // Identifies a boolean frontmatter field that tells the plug-in 
-    // the article is still in progress.
-    //
-    // Drafts are rendered in plain text (no links).
-    //
-    // Default: 'draft' 
-    // Optional
-    draftField: 'draft',
+options: {
+// Identifies a boolean frontmatter field that tells the plug-in
+// the article is still in progress.
+//
+// Drafts are rendered in plain text (no links).
+//
+// Default: 'draft'
+// Optional
+draftField: 'draft',
 
     // Identifies a numeric frontmatter field that indicates the series order.
     // When this is not specified, then the order is determine by the position
@@ -37,10 +37,10 @@ tags:
     orderField: 'order',
 
     // Identifies a string frontmatter field that indicates the name of the series.
-    // 
+    //
     // Default: 'series'
     // Optional
-    seriesField: '',    
+    seriesField: '',
 
     render: {
       // Inline, renders the toc in the file.
@@ -49,7 +49,7 @@ tags:
       // Default: 'inline'
       // Optional
       mode: 'inline' | 'external',
-      
+
       // The template to be used.
       // Uses tokens to indicate the insertion points.
       //
@@ -59,7 +59,7 @@ tags:
 
       // Exclusive for inline
       // Where do you want the toc to be rendered.
-      // 
+      //
       // Default: 'top'
       // Optional
       placeholder: 'top' | 'bottom' | 'both',
@@ -78,5 +78,6 @@ tags:
       // Required
       externalLayout: string
     }
-  }
+
+}
 }

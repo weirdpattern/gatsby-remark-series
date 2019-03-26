@@ -2,6 +2,21 @@ import kebabCase from "lodash.kebabcase";
 import defaultsDeep from "lodash.defaultsdeep";
 
 /**
+ * Default external template.
+ * @param {SeriesContext} context the context to be used.
+ * @return {string} the external template.
+ */
+const ExternalTemplate = context => {
+  return `
+<div class="series--external-toc">
+  <p>This post is part of the <a href="${context.slug}">${
+    context.name
+  }</a> series</p>
+</div>
+`.trim();
+};
+
+/**
  * Default internal template.
  * @param {SeriesContext} context the context to be used.
  * @return {string} the internal template.
@@ -18,6 +33,7 @@ const InlineTemplate = context => {
 
   return `
 <div class="series--inline-toc">
+  <div>Other posts in the ${context.name} series</div>
   <ol>
     ${html}
   </ol>
@@ -26,28 +42,15 @@ const InlineTemplate = context => {
 };
 
 /**
- * Default external template.
- * @param {SeriesContext} context the context to be used.
- * @return {string} the external template.
- */
-const ExternalTemplate = context => {
-  return `
-<div class="series--external-toc">
-  <p>This post is part of the <a href="${context.slug}">${
-    context.name
-  }</a> series</p>
-</div>
-`.trim();
-};
-
-/**
  * Default options for the series.
  */
 const DefaultOptions = {
-  date: node => node.frontmatter.date,
-  draft: node => node.frontmatter.draft,
-  order: node => node.frontmatter.order,
-  series: node => node.frontmatter.series,
+  slug: markdownNode => markdownNode.frontmatter.slug,
+  date: markdownNode => markdownNode.frontmatter.date,
+  draft: markdownNode => markdownNode.frontmatter.draft,
+  order: markdownNode => markdownNode.frontmatter.order,
+  series: markdownNode => markdownNode.frontmatter.series,
+  toSlug: series => kebabCase(series),
   render: {
     mode: "inline",
     placeholder: "bottom"
@@ -81,29 +84,25 @@ export function resolveOptions(pluginOptions) {
   options.render.mode = options.render.mode.toLowerCase();
   options.render.placeholder = options.render.placeholder.toLowerCase();
   options.render.template =
-    options.render.template || options.render.mode === "inline"
-      ? InlineTemplate
-      : ExternalTemplate;
+    options.render.template || options.render.mode === "external"
+      ? ExternalTemplate
+      : InlineTemplate;
 
+  assertType("function", "slug", options.slug);
   assertType("function", "date", options.date);
   assertType("function", "draft", options.draft);
   assertType("function", "order", options.order);
   assertType("function", "series", options.series);
+  assertType("function", "toSlug", options.toSlug);
   assertType("function", "template", options.render.template);
 
-  if (options.render.mode === "inline") {
-    options.slug = options.slug || (node => node.frontmatter.slug);
-  } else {
-    options.slug = options.slug || (node => kebabCase(node.frontmatter.title));
-
+  if (options.render.mode === "external") {
     assertType("string", "externalLayout", options.render.externalLayout);
 
     if (options.render.pathPrefix != null) {
       assertType("string", "pathPrefix", options.render.pathPrefix);
     }
   }
-
-  assertType("function", "slug", options.slug);
 
   return options;
 }
@@ -131,5 +130,5 @@ export function resolveSeriesPath(name, pathPrefix, pluginPathPrefix) {
 
   path.push(name);
 
-  return path.join("/");
+  return `/${path.join("/")}`;
 }

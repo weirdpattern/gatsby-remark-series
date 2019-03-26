@@ -1,3 +1,4 @@
+import { resolve } from "path";
 import { resolveOptions, resolveSeriesPath } from "./misc/utils";
 
 /** @inheritdoc */
@@ -15,7 +16,6 @@ export function createPages(
     )
     .reduce((map, node) => {
       const name = options.series(node);
-      if (name == null) return map;
 
       map[name] = map[name] || [];
       map[name].push({
@@ -32,16 +32,16 @@ export function createPages(
 
   Object.keys(series).map(key => {
     const slug = resolveSeriesPath(
-      options.slug({ frontmatter: { title: key } }),
+      options.toSlug(key),
       pathPrefix,
       options.render.pathPrefix
     );
 
     createPage({
       path: slug,
-      component: options.render.externalLayout,
+      component: resolve(options.render.externalLayout),
       context: {
-        slug,
+        name: key,
         items: series[key]
       }
     });
