@@ -1,29 +1,32 @@
 import { resolve } from "path";
 import { resolveOptions, resolveSeriesPath } from "./misc/utils";
 
+const touched = {};
+
 /** @inheritdoc */
 export function createPages(
   { getNodes, pathPrefix, actions: { createPage } },
   pluginOptions
 ) {
   const options = resolveOptions(pluginOptions);
-  if (options.render.mode !== "external") return;
+  if (options.render.useLandingPage !== true) return;
 
   const series = getNodes()
     .filter(
       node =>
-        node.internal.type === "MarkdownRemark" && options.series(node) != null
+        node.internal.type === "MarkdownRemark" &&
+        options.resolvers.series(node) != null
     )
     .reduce((map, node) => {
-      const name = options.series(node);
+      const name = options.resolvers.series(node);
 
       map[name] = map[name] || [];
       map[name].push({
         title: node.frontmatter.title,
-        slug: options.slug(node),
-        date: options.date(node),
-        draft: options.draft(node),
-        order: options.order(node),
+        slug: options.resolvers.slug(node),
+        date: options.resolvers.date(node),
+        draft: options.resolvers.draft(node),
+        order: options.resolvers.order(node),
         series: name
       });
 
@@ -32,18 +35,19 @@ export function createPages(
 
   Object.keys(series).map(key => {
     const slug = resolveSeriesPath(
-      options.toSlug(key),
+      options.resolvers.toSlug(key),
       pathPrefix,
-      options.render.pathPrefix
+      options.render.landingPagePathPrefix
     );
 
     createPage({
       path: slug,
-      component: resolve(options.render.externalLayout),
+      component: resolve(options.render.landingPageComponent),
       context: {
         name: key,
-        items: series[key]
-      }
+        items: series[key].sort(
+          // do sort
+        }
     });
   });
 }
@@ -55,21 +59,33 @@ export function onCreateNode(
 ) {
   const options = resolveOptions(pluginOptions);
 
-  if (node.internal.type === "MarkdownRemark" && options.series(node) != null) {
-    // get every item in the series, but the current one
-    const series = options.series(node);
-    const siblings = getNodes().filter(
-      sibling =>
-        sibling.internal.type === "MarkdownRemark" &&
-        options.series(sibling) === series &&
-        sibling.id !== node.id
-    );
+  if (
+    node.internal.type === "MarkdownRemark" &&
+    options.resolvers.series(node) != null
+  ) {
+    const series = options.resolvers.series(node);
+
+    // keep track of the items already processed (by content digest hash)
+    // slow, but guarantees uniqueness
+    touched[series] = touched[series] || new Set();
+    touched[series].add(node.internal.contentDigest);
+
+    const siblings = getNodes()
+      .filter(
+        sibling =>
+          sibling.internal.type === "MarkdownRemark" &&
+          options.resolvers.series(sibling) === series &&
+          !touched[series].has(sibling.internal.contentDigest)
+      );
 
     // force every item in the series to refresh
+    // by setting a random contentDigest
     for (const sibling of siblings) {
       sibling.internal.contentDigest = createContentDigest(
         new Date().getTime()
       );
+
+      touched[series].add(sibling.internal.contentDigest);
     }
   }
 }

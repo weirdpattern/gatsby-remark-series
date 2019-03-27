@@ -4,12 +4,12 @@ const localCache = {};
 
 /**
  * Validates the context of the request.
- * @param {GatsbyContext} context the gatsby context to be used.
- * @param {PluginOptions} options the plugin options to be used.
- * @returns {boolean} true if the context is valid; false otherwise.
+ * @param {GatsbyContext} context The gatsby context to be used.
+ * @param {PluginOptions} options The plugin options to be used.
+ * @returns {boolean} True if the context is valid; false otherwise.
  */
 function validContext(context, options) {
-  const series = options.series(context.markdownNode);
+  const series = options.resolvers.series(context.markdownNode);
   if (series == null) return false;
 
   return true;
@@ -17,7 +17,7 @@ function validContext(context, options) {
 
 /**
  * Renders the table of content at the top of the page.
- * @param {object} context the template context to be used.
+ * @param {Object} context The template context to be used.
  * @returns {void}
  */
 function renderTop({ options, ...context }) {
@@ -41,7 +41,7 @@ function renderTop({ options, ...context }) {
 
 /**
  * Renders the table of content at the bottom of the page.
- * @param {object} context the template values to be used.
+ * @param {Object} context The template values to be used.
  * @returns {void}
  */
 function renderBottom({ options, ...context }) {
@@ -65,12 +65,12 @@ function renderBottom({ options, ...context }) {
 
 /**
  * Gets all nodes associated to a series.
- * @param {GatsbyContext} context the gatsby context to be used.
- * @param {PluginOptions} options the plugin options to be used.
- * @returns {Array<object>} the nodes in the series.
+ * @param {GatsbyContext} context The gatsby context to be used.
+ * @param {PluginOptions} options The plugin options to be used.
+ * @returns {Array<Object>} The nodes in the series.
  */
 function getSeriesItems(context, options) {
-  const series = options.series(context.markdownNode);
+  const series = options.resolvers.series(context.markdownNode);
   const cacheKey = context.createContentDigest(series);
 
   // cache gets cleared on every build, but that should be enough
@@ -84,18 +84,18 @@ function getSeriesItems(context, options) {
       .filter(
         node =>
           node.internal.type === "MarkdownRemark" &&
-          options.series(node) === series
+          options.resolvers.series(node) === series
       )
 
       // map to something meaningful
       .map(node => {
         return {
           title: node.frontmatter.title,
-          slug: options.slug(node),
-          date: options.date(node),
-          draft: options.draft(node),
-          order: options.order(node),
-          series: options.series(node)
+          slug: options.resolvers.slug(node),
+          date: options.resolvers.date(node),
+          draft: options.resolvers.draft(node),
+          order: options.resolvers.order(node),
+          series: options.resolvers.series(node)
         };
       })
 
@@ -135,23 +135,28 @@ function getSeriesItems(context, options) {
 
 /**
  * Renders the table of content.
- * @param {GatsbyContext} context the gatsby context to be used.
- * @param {PluginOptions} options the plugin options to be used.
- * @returns {AST} the modified markdownAST.
+ * @param {GatsbyContext} context The gatsby context to be used.
+ * @param {PluginOptions} options The plugin options to be used.
+ * @returns {AST} The modified markdownAST.
  */
 export default (context, options) => {
   if (!validContext(context, options)) return context.markdownAST;
 
   const { markdownAST, markdownNode, pathPrefix } = context;
 
-  const series = options.series(markdownNode);
+  const series = options.resolvers.series(markdownNode);
   const items = getSeriesItems(context, options);
 
-  const path = resolveSeriesPath(
-    options.toSlug(series),
-    pathPrefix,
-    options.pathPrefix
-  );
+  // path is only meaningful (and available to the developer)
+  // when a landing page is requested
+  const path =
+    options.render.useLandingPage === true
+      ? resolveSeriesPath(
+          options.resolvers.toSlug(series),
+          pathPrefix,
+          options.render.landingPagePathPrefix
+        )
+      : null;
 
   renderTop({ options, items, name: series, slug: path, ...context });
   renderBottom({ options, items, name: series, slug: path, ...context });
