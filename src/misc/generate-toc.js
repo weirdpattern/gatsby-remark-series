@@ -18,7 +18,6 @@ function validContext(context, options) {
 /**
  * Renders the table of content at the top of the page.
  * @param {Object} context The template context to be used.
- * @returns {void}
  */
 function renderTop({ options, ...context }) {
   if (
@@ -27,7 +26,7 @@ function renderTop({ options, ...context }) {
   ) {
     context.markdownAST.children.unshift({
       type: "html",
-      value: options.template({
+      value: options.render.template({
         placeholder: "top",
         name: context.name,
         slug: context.slug,
@@ -42,7 +41,6 @@ function renderTop({ options, ...context }) {
 /**
  * Renders the table of content at the bottom of the page.
  * @param {Object} context The template values to be used.
- * @returns {void}
  */
 function renderBottom({ options, ...context }) {
   if (

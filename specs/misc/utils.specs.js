@@ -6,11 +6,17 @@ import {
 } from "../../src/misc/utils";
 
 describe("utils", () => {
+  const reporter = {
+    panic: message => {
+      throw new Error(message);
+    }
+  };
+
   describe("resolveOptions", () => {
     test.each([undefined, null, {}])(
       "default options are returned when plugins options aren't passed",
       pluginOptions => {
-        const resolved = resolveOptions(pluginOptions);
+        const resolved = resolveOptions(pluginOptions, reporter);
         const node = {
           frontmatter: {
             slug: "Test Slug",
@@ -74,7 +80,7 @@ describe("utils", () => {
         value
       );
 
-      expect(() => resolveOptions({ render })).toThrow(message);
+      expect(() => resolveOptions({ render }, reporter)).toThrow(message);
     });
 
     test.each([
@@ -99,7 +105,7 @@ describe("utils", () => {
           value
         );
 
-        expect(() => resolveOptions({ resolvers })).toThrow(message);
+        expect(() => resolveOptions({ resolvers }, reporter)).toThrow(message);
       }
     );
 
@@ -124,7 +130,7 @@ describe("utils", () => {
           value
         );
 
-        expect(() => resolveOptions({ render })).toThrow(message);
+        expect(() => resolveOptions({ render }, reporter)).toThrow(message);
       }
     );
 
@@ -140,7 +146,7 @@ describe("utils", () => {
           value
         );
 
-        expect(() => resolveOptions({ render })).not.toThrow();
+        expect(() => resolveOptions({ render }, reporter)).not.toThrow();
       }
     );
 
@@ -158,7 +164,8 @@ describe("utils", () => {
               useLandingPage,
               landingPagePathPrefix,
               landingPageComponent: "path"
-            }
+            },
+            reporter
           })
         ).not.toThrow();
       }
@@ -170,28 +177,28 @@ describe("utils", () => {
       "throws when name is not a string",
       name => {
         expect(() =>
-          resolveSeriesPath(name, "pathPrefix", "pluginPathPrefix")
+          resolveSeriesPath(name, "pathPrefix", "pluginPathPrefix", reporter)
         ).toThrow("name must be of type string");
       }
     );
 
     test("uses name, pathPrefix and pluginPathPrefix when available", () => {
-      expect(resolveSeriesPath("name", "pathPrefix", "pluginPathPrefix")).toBe(
-        "/pathPrefix/pluginPathPrefix/name"
-      );
+      expect(
+        resolveSeriesPath("name", "pathPrefix", "pluginPathPrefix", reporter)
+      ).toBe("/pathPrefix/pluginPathPrefix/name");
     });
 
     test.each([null, undefined, 1, true, {}, [], () => {}, Symbol.for("A")])(
       "ignores non strings in pathPrefix",
       pathPrefix => {
-        expect(resolveSeriesPath("name", pathPrefix, "pluginPathPrefix")).toBe(
-          "/pluginPathPrefix/name"
-        );
+        expect(
+          resolveSeriesPath("name", pathPrefix, "pluginPathPrefix", reporter)
+        ).toBe("/pluginPathPrefix/name");
       }
     );
 
     test("ignores empty strings in pathPrefix", () => {
-      expect(resolveSeriesPath("name", "", "pluginPathPrefix")).toBe(
+      expect(resolveSeriesPath("name", "", "pluginPathPrefix", reporter)).toBe(
         "/pluginPathPrefix/name"
       );
     });
@@ -199,23 +206,23 @@ describe("utils", () => {
     test.each(["/pathPrefix", "pathPrefix/", "/pathPrefix/"])(
       "strips leading and trailing / in pathPrefix",
       pathPrefix => {
-        expect(resolveSeriesPath("name", pathPrefix, "pluginPathPrefix")).toBe(
-          "/pathPrefix/pluginPathPrefix/name"
-        );
+        expect(
+          resolveSeriesPath("name", pathPrefix, "pluginPathPrefix", reporter)
+        ).toBe("/pathPrefix/pluginPathPrefix/name");
       }
     );
 
     test.each([null, undefined, 1, true, {}, [], () => {}, Symbol.for("A")])(
       "ignores non strings in pluginPathPrefix",
       pluginPathPrefix => {
-        expect(resolveSeriesPath("name", "pathPrefix", pluginPathPrefix)).toBe(
-          "/pathPrefix/name"
-        );
+        expect(
+          resolveSeriesPath("name", "pathPrefix", pluginPathPrefix, reporter)
+        ).toBe("/pathPrefix/name");
       }
     );
 
     test("ignores empty strings in pluginPathPrefix", () => {
-      expect(resolveSeriesPath("name", "pathPrefix", "")).toBe(
+      expect(resolveSeriesPath("name", "pathPrefix", "", reporter)).toBe(
         "/pathPrefix/name"
       );
     });
@@ -223,9 +230,9 @@ describe("utils", () => {
     test.each(["/pluginPathPrefix", "pluginPathPrefix/", "/pluginPathPrefix/"])(
       "strips leading and trailing / in pluginPathPrefix",
       pluginPathPrefix => {
-        expect(resolveSeriesPath("name", "pathPrefix", pluginPathPrefix)).toBe(
-          "/pathPrefix/pluginPathPrefix/name"
-        );
+        expect(
+          resolveSeriesPath("name", "pathPrefix", pluginPathPrefix, reporter)
+        ).toBe("/pathPrefix/pluginPathPrefix/name");
       }
     );
   });

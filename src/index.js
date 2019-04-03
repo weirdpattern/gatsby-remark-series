@@ -107,5 +107,5 @@ import { resolveOptions } from "./misc/utils";
  * @returns {*} The markdown ast.
  */
 export default (context, pluginOptions) => {
-  return generateTOC(context, resolveOptions(pluginOptions));
+  return generateTOC(context, resolveOptions(pluginOptions, context.reporter));
 };

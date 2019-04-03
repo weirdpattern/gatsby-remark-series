@@ -1,0 +1,415 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`gatsby-remark-series passes options to generate-toc 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "type": "html",
+      "value": "<div class=\\"series-table-of-content\\">
+  <div>Other posts in the My Title Series series</div>
+  <ol><li><a href=\\"undefined\\">My Title 2</a></li><li><a href=\\"undefined\\">My Title 3</a></li></ol>
+</div>",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 1,
+          "offset": 3,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 26,
+              "line": 4,
+              "offset": 66,
+            },
+            "indent": Array [
+              1,
+              1,
+            ],
+            "start": Object {
+              "column": 1,
+              "line": 2,
+              "offset": 4,
+            },
+          },
+          "type": "text",
+          "value": "title: \\"My Title\\"
+date: \\"2019-03-18\\"
+series: \\"My Title Series\\"",
+        },
+      ],
+      "position": Position {
+        "end": Object {
+          "column": 26,
+          "line": 4,
+          "offset": 66,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 2,
+          "offset": 4,
+        },
+      },
+      "type": "paragraph",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 5,
+          "offset": 70,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 5,
+          "offset": 67,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 11,
+              "line": 7,
+              "offset": 82,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 3,
+              "line": 7,
+              "offset": 74,
+            },
+          },
+          "type": "text",
+          "value": "My Title",
+        },
+      ],
+      "depth": 1,
+      "position": Position {
+        "end": Object {
+          "column": 11,
+          "line": 7,
+          "offset": 82,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 7,
+          "offset": 72,
+        },
+      },
+      "type": "heading",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 11,
+      "line": 7,
+      "offset": 82,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;
+
+exports[`gatsby-remark-series resolves options before sending to generate-toc 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 1,
+          "offset": 3,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 26,
+              "line": 4,
+              "offset": 66,
+            },
+            "indent": Array [
+              1,
+              1,
+            ],
+            "start": Object {
+              "column": 1,
+              "line": 2,
+              "offset": 4,
+            },
+          },
+          "type": "text",
+          "value": "title: \\"My Title\\"
+date: \\"2019-03-18\\"
+series: \\"My Title Series\\"",
+        },
+      ],
+      "position": Position {
+        "end": Object {
+          "column": 26,
+          "line": 4,
+          "offset": 66,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 2,
+          "offset": 4,
+        },
+      },
+      "type": "paragraph",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 5,
+          "offset": 70,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 5,
+          "offset": 67,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 11,
+              "line": 7,
+              "offset": 82,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 3,
+              "line": 7,
+              "offset": 74,
+            },
+          },
+          "type": "text",
+          "value": "My Title",
+        },
+      ],
+      "depth": 1,
+      "position": Position {
+        "end": Object {
+          "column": 11,
+          "line": 7,
+          "offset": 82,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 7,
+          "offset": 72,
+        },
+      },
+      "type": "heading",
+    },
+    Object {
+      "type": "html",
+      "value": "<div class=\\"series-table-of-content\\">
+  <div>Other posts in the My Title Series series</div>
+  <ol><li><a href=\\"undefined\\">My Title 2</a></li><li><a href=\\"undefined\\">My Title 3</a></li></ol>
+</div>",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 11,
+      "line": 7,
+      "offset": 82,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;
+
+exports[`gatsby-remark-series resolves options before sending to generate-toc 2`] = `
+Object {
+  "children": Array [
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 1,
+          "offset": 3,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 26,
+              "line": 4,
+              "offset": 66,
+            },
+            "indent": Array [
+              1,
+              1,
+            ],
+            "start": Object {
+              "column": 1,
+              "line": 2,
+              "offset": 4,
+            },
+          },
+          "type": "text",
+          "value": "title: \\"My Title\\"
+date: \\"2019-03-18\\"
+series: \\"My Title Series\\"",
+        },
+      ],
+      "position": Position {
+        "end": Object {
+          "column": 26,
+          "line": 4,
+          "offset": 66,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 2,
+          "offset": 4,
+        },
+      },
+      "type": "paragraph",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 5,
+          "offset": 70,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 5,
+          "offset": 67,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 11,
+              "line": 7,
+              "offset": 82,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 3,
+              "line": 7,
+              "offset": 74,
+            },
+          },
+          "type": "text",
+          "value": "My Title",
+        },
+      ],
+      "depth": 1,
+      "position": Position {
+        "end": Object {
+          "column": 11,
+          "line": 7,
+          "offset": 82,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 7,
+          "offset": 72,
+        },
+      },
+      "type": "heading",
+    },
+    Object {
+      "type": "html",
+      "value": "<div class=\\"series-table-of-content\\">
+  <div>Other posts in the My Title Series series</div>
+  <ol><li><a href=\\"undefined\\">My Title 2</a></li><li><a href=\\"undefined\\">My Title 3</a></li></ol>
+</div>",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 11,
+      "line": 7,
+      "offset": 82,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;

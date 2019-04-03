@@ -62,48 +62,58 @@ export const DefaultOptions = {
  * @param {string} type The expected type.
  * @param {string} name The name of the property.
  * @param {*} value The value of the property.
+ * @param {GatsbyReporter} reporter The reporter to be used.
  */
-function assertType(type, name, value) {
+function assertType(type, name, value, reporter) {
   if (typeof value !== type) {
-    throw new Error(`${name} must be of type ${type}`);
+    reporter.panic(`${name} must be of type ${type}`);
   }
 }
 
 /**
  * Resolves the plug-in options to be used.
  * @param {PluginOptions} pluginOptions The user defined options.
+ * @param {GatsbyReporter} reporter The reporter to be used.
  * @returns {PluginOptions} The resolved options.
  */
-export function resolveOptions(pluginOptions) {
+export function resolveOptions(pluginOptions, reporter) {
   const options = defaultsDeep({}, pluginOptions, DefaultOptions);
 
-  assertType("string", "mode", options.render.mode);
-  assertType("string", "placeholder", options.render.placeholder);
-  assertType("function", "template", options.render.template);
-  assertType("boolean", "useLandingPage", options.render.useLandingPage);
+  assertType("string", "mode", options.render.mode, reporter);
+  assertType("string", "placeholder", options.render.placeholder, reporter);
+  assertType("function", "template", options.render.template, reporter);
+
+  assertType(
+    "boolean",
+    "useLandingPage",
+    options.render.useLandingPage,
+    reporter
+  );
 
   options.render.mode = options.render.mode.toLowerCase();
   options.render.placeholder = options.render.placeholder.toLowerCase();
 
-  assertType("function", "slug", options.resolvers.slug);
-  assertType("function", "date", options.resolvers.date);
-  assertType("function", "draft", options.resolvers.draft);
-  assertType("function", "order", options.resolvers.order);
-  assertType("function", "series", options.resolvers.series);
-  assertType("function", "toSlug", options.resolvers.toSlug);
+  assertType("function", "slug", options.resolvers.slug, reporter);
+  assertType("function", "date", options.resolvers.date, reporter);
+  assertType("function", "draft", options.resolvers.draft, reporter);
+  assertType("function", "order", options.resolvers.order, reporter);
+  assertType("function", "series", options.resolvers.series, reporter);
+  assertType("function", "toSlug", options.resolvers.toSlug, reporter);
 
   if (options.render.useLandingPage === true) {
     assertType(
       "string",
       "landingPageComponent",
-      options.render.landingPageComponent
+      options.render.landingPageComponent,
+      reporter
     );
 
     if (options.render.landingPagePathPrefix != null) {
       assertType(
         "string",
         "landingPagePathPrefix",
-        options.render.landingPagePathPrefix
+        options.render.landingPagePathPrefix,
+        reporter
       );
     }
   }
@@ -116,12 +126,18 @@ export function resolveOptions(pluginOptions) {
  * @param {string} name The name of the series.
  * @param {string} [pathPrefix] The global path prefix to be used.
  * @param {string} [pluginPathPrefix] The plugin defined path prefix to be used.
+ * @param {GatsbyReporter} reporter The reporter to be used.
  * @returns {string} The resolved series path (slug).
  */
-export function resolveSeriesPath(name, pathPrefix, pluginPathPrefix) {
+export function resolveSeriesPath(
+  name,
+  pathPrefix,
+  pluginPathPrefix,
+  reporter
+) {
   const path = [];
 
-  assertType("string", "name", name);
+  assertType("string", "name", name, reporter);
 
   if (typeof pathPrefix === "string") {
     const cleanPathPrefix = pathPrefix.replace(/^\/|\/$/g, "");

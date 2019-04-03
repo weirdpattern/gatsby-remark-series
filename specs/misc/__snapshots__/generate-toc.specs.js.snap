@@ -1,0 +1,1095 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generate-toc adds a children on bottom of the AST's children when bottom placeholder is used 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 1,
+          "offset": 3,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 26,
+              "line": 4,
+              "offset": 66,
+            },
+            "indent": Array [
+              1,
+              1,
+            ],
+            "start": Object {
+              "column": 1,
+              "line": 2,
+              "offset": 4,
+            },
+          },
+          "type": "text",
+          "value": "title: \\"My Title\\"
+date: \\"2019-03-18\\"
+series: \\"My Title Series\\"",
+        },
+      ],
+      "position": Position {
+        "end": Object {
+          "column": 26,
+          "line": 4,
+          "offset": 66,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 2,
+          "offset": 4,
+        },
+      },
+      "type": "paragraph",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 5,
+          "offset": 70,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 5,
+          "offset": 67,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 11,
+              "line": 7,
+              "offset": 82,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 3,
+              "line": 7,
+              "offset": 74,
+            },
+          },
+          "type": "text",
+          "value": "My Title",
+        },
+      ],
+      "depth": 1,
+      "position": Position {
+        "end": Object {
+          "column": 11,
+          "line": 7,
+          "offset": 82,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 7,
+          "offset": 72,
+        },
+      },
+      "type": "heading",
+    },
+    Object {
+      "type": "html",
+      "value": "<div class=\\"series-table-of-content\\">
+  <div>Other posts in the My Title Series series</div>
+  <ol><li><a href=\\"undefined\\">My Title 2</a></li><li><a href=\\"undefined\\">My Title 3</a></li></ol>
+</div>",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 11,
+      "line": 7,
+      "offset": 82,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;
+
+exports[`generate-toc adds a children on top of the AST's children when top placeholder is used 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "type": "html",
+      "value": "<div class=\\"series-table-of-content\\">
+  <div>Other posts in the My Title Series series</div>
+  <ol><li><a href=\\"undefined\\">My Title 2</a></li><li><a href=\\"undefined\\">My Title 3</a></li></ol>
+</div>",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 1,
+          "offset": 3,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 26,
+              "line": 4,
+              "offset": 66,
+            },
+            "indent": Array [
+              1,
+              1,
+            ],
+            "start": Object {
+              "column": 1,
+              "line": 2,
+              "offset": 4,
+            },
+          },
+          "type": "text",
+          "value": "title: \\"My Title\\"
+date: \\"2019-03-18\\"
+series: \\"My Title Series\\"",
+        },
+      ],
+      "position": Position {
+        "end": Object {
+          "column": 26,
+          "line": 4,
+          "offset": 66,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 2,
+          "offset": 4,
+        },
+      },
+      "type": "paragraph",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 5,
+          "offset": 70,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 5,
+          "offset": 67,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 11,
+              "line": 7,
+              "offset": 82,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 3,
+              "line": 7,
+              "offset": 74,
+            },
+          },
+          "type": "text",
+          "value": "My Title",
+        },
+      ],
+      "depth": 1,
+      "position": Position {
+        "end": Object {
+          "column": 11,
+          "line": 7,
+          "offset": 82,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 7,
+          "offset": 72,
+        },
+      },
+      "type": "heading",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 11,
+      "line": 7,
+      "offset": 82,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;
+
+exports[`generate-toc renders inline toc references 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 1,
+          "offset": 3,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 26,
+              "line": 4,
+              "offset": 66,
+            },
+            "indent": Array [
+              1,
+              1,
+            ],
+            "start": Object {
+              "column": 1,
+              "line": 2,
+              "offset": 4,
+            },
+          },
+          "type": "text",
+          "value": "title: \\"My Title\\"
+date: \\"2019-03-18\\"
+series: \\"My Title Series\\"",
+        },
+      ],
+      "position": Position {
+        "end": Object {
+          "column": 26,
+          "line": 4,
+          "offset": 66,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 2,
+          "offset": 4,
+        },
+      },
+      "type": "paragraph",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 5,
+          "offset": 70,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 5,
+          "offset": 67,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 11,
+              "line": 7,
+              "offset": 82,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 3,
+              "line": 7,
+              "offset": 74,
+            },
+          },
+          "type": "text",
+          "value": "My Title",
+        },
+      ],
+      "depth": 1,
+      "position": Position {
+        "end": Object {
+          "column": 11,
+          "line": 7,
+          "offset": 82,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 7,
+          "offset": 72,
+        },
+      },
+      "type": "heading",
+    },
+    Object {
+      "type": "html",
+      "value": "<div class=\\"series-table-of-content\\">
+  <div>Other posts in the My Title Series series</div>
+  <ol><li><a href=\\"undefined\\">My Title 2</a></li><li><a href=\\"undefined\\">My Title 3</a></li></ol>
+</div>",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 11,
+      "line": 7,
+      "offset": 82,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;
+
+exports[`generate-toc renders reference to external toc 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 1,
+          "offset": 3,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 26,
+              "line": 4,
+              "offset": 66,
+            },
+            "indent": Array [
+              1,
+              1,
+            ],
+            "start": Object {
+              "column": 1,
+              "line": 2,
+              "offset": 4,
+            },
+          },
+          "type": "text",
+          "value": "title: \\"My Title\\"
+date: \\"2019-03-18\\"
+series: \\"My Title Series\\"",
+        },
+      ],
+      "position": Position {
+        "end": Object {
+          "column": 26,
+          "line": 4,
+          "offset": 66,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 2,
+          "offset": 4,
+        },
+      },
+      "type": "paragraph",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 5,
+          "offset": 70,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 5,
+          "offset": 67,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 11,
+              "line": 7,
+              "offset": 82,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 3,
+              "line": 7,
+              "offset": 74,
+            },
+          },
+          "type": "text",
+          "value": "My Title",
+        },
+      ],
+      "depth": 1,
+      "position": Position {
+        "end": Object {
+          "column": 11,
+          "line": 7,
+          "offset": 82,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 7,
+          "offset": 72,
+        },
+      },
+      "type": "heading",
+    },
+    Object {
+      "type": "html",
+      "value": "<div class=\\"series-table-of-content\\">
+  <span>This post is part of the <a href=\\"/my-title-series\\">My Title Series</a> series</span>
+  
+</div>",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 11,
+      "line": 7,
+      "offset": 82,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;
+
+exports[`generate-toc returns a modified version of the AST when series is detected 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 1,
+          "offset": 3,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 26,
+              "line": 4,
+              "offset": 66,
+            },
+            "indent": Array [
+              1,
+              1,
+            ],
+            "start": Object {
+              "column": 1,
+              "line": 2,
+              "offset": 4,
+            },
+          },
+          "type": "text",
+          "value": "title: \\"My Title\\"
+date: \\"2019-03-18\\"
+series: \\"My Title Series\\"",
+        },
+      ],
+      "position": Position {
+        "end": Object {
+          "column": 26,
+          "line": 4,
+          "offset": 66,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 2,
+          "offset": 4,
+        },
+      },
+      "type": "paragraph",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 5,
+          "offset": 70,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 5,
+          "offset": 67,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 11,
+              "line": 7,
+              "offset": 82,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 3,
+              "line": 7,
+              "offset": 74,
+            },
+          },
+          "type": "text",
+          "value": "My Title",
+        },
+      ],
+      "depth": 1,
+      "position": Position {
+        "end": Object {
+          "column": 11,
+          "line": 7,
+          "offset": 82,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 7,
+          "offset": 72,
+        },
+      },
+      "type": "heading",
+    },
+    Object {
+      "type": "html",
+      "value": "<div class=\\"series-table-of-content\\">
+  <div>Other posts in the My Title Series series</div>
+  <ol><li><a href=\\"undefined\\">My Title 2</a></li><li><a href=\\"undefined\\">My Title 3</a></li></ol>
+</div>",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 11,
+      "line": 7,
+      "offset": 82,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;
+
+exports[`generate-toc returns the exact AST when no series is detected 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 1,
+          "offset": 3,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 19,
+              "line": 3,
+              "offset": 40,
+            },
+            "indent": Array [
+              1,
+            ],
+            "start": Object {
+              "column": 1,
+              "line": 2,
+              "offset": 4,
+            },
+          },
+          "type": "text",
+          "value": "title: \\"My Title\\"
+date: \\"2019-03-18\\"",
+        },
+      ],
+      "position": Position {
+        "end": Object {
+          "column": 19,
+          "line": 3,
+          "offset": 40,
+        },
+        "indent": Array [
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 2,
+          "offset": 4,
+        },
+      },
+      "type": "paragraph",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 4,
+          "offset": 44,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 4,
+          "offset": 41,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 11,
+              "line": 6,
+              "offset": 56,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 3,
+              "line": 6,
+              "offset": 48,
+            },
+          },
+          "type": "text",
+          "value": "My Title",
+        },
+      ],
+      "depth": 1,
+      "position": Position {
+        "end": Object {
+          "column": 11,
+          "line": 6,
+          "offset": 56,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 6,
+          "offset": 46,
+        },
+      },
+      "type": "heading",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 11,
+      "line": 6,
+      "offset": 56,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;
+
+exports[`generate-toc uses the pathPrefix in external toc 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 1,
+          "offset": 3,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 26,
+              "line": 4,
+              "offset": 66,
+            },
+            "indent": Array [
+              1,
+              1,
+            ],
+            "start": Object {
+              "column": 1,
+              "line": 2,
+              "offset": 4,
+            },
+          },
+          "type": "text",
+          "value": "title: \\"My Title\\"
+date: \\"2019-03-18\\"
+series: \\"My Title Series\\"",
+        },
+      ],
+      "position": Position {
+        "end": Object {
+          "column": 26,
+          "line": 4,
+          "offset": 66,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 2,
+          "offset": 4,
+        },
+      },
+      "type": "paragraph",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 5,
+          "offset": 70,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 5,
+          "offset": 67,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 11,
+              "line": 7,
+              "offset": 82,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 3,
+              "line": 7,
+              "offset": 74,
+            },
+          },
+          "type": "text",
+          "value": "My Title",
+        },
+      ],
+      "depth": 1,
+      "position": Position {
+        "end": Object {
+          "column": 11,
+          "line": 7,
+          "offset": 82,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 7,
+          "offset": 72,
+        },
+      },
+      "type": "heading",
+    },
+    Object {
+      "type": "html",
+      "value": "<div class=\\"series-table-of-content\\">
+  <span>This post is part of the <a href=\\"/blog/series/my-title-series\\">My Title Series</a> series</span>
+  
+</div>",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 11,
+      "line": 7,
+      "offset": 82,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;
+
+exports[`generate-toc uses the pluginPathPrefix in external toc 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 1,
+          "offset": 3,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 26,
+              "line": 4,
+              "offset": 66,
+            },
+            "indent": Array [
+              1,
+              1,
+            ],
+            "start": Object {
+              "column": 1,
+              "line": 2,
+              "offset": 4,
+            },
+          },
+          "type": "text",
+          "value": "title: \\"My Title\\"
+date: \\"2019-03-18\\"
+series: \\"My Title Series\\"",
+        },
+      ],
+      "position": Position {
+        "end": Object {
+          "column": 26,
+          "line": 4,
+          "offset": 66,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 2,
+          "offset": 4,
+        },
+      },
+      "type": "paragraph",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 5,
+          "offset": 70,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 5,
+          "offset": 67,
+        },
+      },
+      "type": "thematicBreak",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 11,
+              "line": 7,
+              "offset": 82,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 3,
+              "line": 7,
+              "offset": 74,
+            },
+          },
+          "type": "text",
+          "value": "My Title",
+        },
+      ],
+      "depth": 1,
+      "position": Position {
+        "end": Object {
+          "column": 11,
+          "line": 7,
+          "offset": 82,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 7,
+          "offset": 72,
+        },
+      },
+      "type": "heading",
+    },
+    Object {
+      "type": "html",
+      "value": "<div class=\\"series-table-of-content\\">
+  <span>This post is part of the <a href=\\"/series/my-title-series\\">My Title Series</a> series</span>
+  
+</div>",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 11,
+      "line": 7,
+      "offset": 82,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;
