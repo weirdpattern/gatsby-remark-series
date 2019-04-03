@@ -1,5 +1,5 @@
 import { resolve } from "path";
-import { resolveOptions, resolveSeriesPath } from "./misc/utils";
+import { resolveOptions, resolveSeriesPath, sortItems } from "./misc/utils";
 
 const touched = {};
 
@@ -45,9 +45,8 @@ export function createPages(
       component: resolve(options.render.landingPageComponent),
       context: {
         name: key,
-        items: series[key].sort(
-          // do sort
-        }
+        items: series[key].sort(sortItems)
+      }
     });
   });
 }
@@ -70,13 +69,12 @@ export function onCreateNode(
     touched[series] = touched[series] || new Set();
     touched[series].add(node.internal.contentDigest);
 
-    const siblings = getNodes()
-      .filter(
-        sibling =>
-          sibling.internal.type === "MarkdownRemark" &&
-          options.resolvers.series(sibling) === series &&
-          !touched[series].has(sibling.internal.contentDigest)
-      );
+    const siblings = getNodes().filter(
+      sibling =>
+        sibling.internal.type === "MarkdownRemark" &&
+        options.resolvers.series(sibling) === series &&
+        !touched[series].has(sibling.internal.contentDigest)
+    );
 
     // force every item in the series to refresh
     // by setting a random contentDigest

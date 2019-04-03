@@ -1,4 +1,4 @@
-import { resolveSeriesPath } from "./utils";
+import { resolveSeriesPath, sortItems } from "./utils";
 
 const localCache = {};
 
@@ -103,29 +103,7 @@ function getSeriesItems(context, options) {
       // 1. order if available
       // 2. date if available
       // 3. title
-      .sort((left, right) => {
-        const orderLeft = Number(left.order);
-        const orderRight = Number(right.order);
-
-        if (!isNaN(orderLeft) && !isNaN(orderRight)) {
-          return orderLeft - orderRight;
-        }
-
-        if (!isNaN(orderLeft)) return -1;
-        if (!isNaN(orderRight)) return 1;
-
-        const dateLeft = new Date(left.date);
-        const dateRight = new Date(right.date);
-
-        if (!isNaN(dateLeft.getTime()) && !isNaN(dateRight.getTime())) {
-          return dateLeft - dateRight;
-        }
-
-        if (!isNaN(dateLeft.getTime())) return -1;
-        if (!isNaN(dateRight.getTime())) return 1;
-
-        return left.title.localCompare(right.title);
-      });
+      .sort(sortItems);
 
     localCache[cacheKey] = items;
   }

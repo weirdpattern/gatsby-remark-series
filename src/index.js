@@ -91,6 +91,16 @@ import { resolveOptions } from "./misc/utils";
  */
 
 /**
+ * @typedef {Object} SeriesItem
+ * @property {string} title The title of the post.
+ * @property {string} slug The url of the post.
+ * @property {Date} date The date of the post.
+ * @property {boolean} draft A flag indicating the post is a draft.
+ * @property {number} order The order of the post in the series.
+ * @property {string} series The name of the series.
+ */
+
+/**
  * Handles the markdown AST.
  * @param {RemarkPluginContext} context The remark plugin context.
  * @param {PluginOptions} pluginOptions The options of the plugin.
