@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`gatsby-remark-series passes options to generate-toc 1`] = `
+exports[`gatsby-remark-series/remark passes options to generate-toc 1`] = `
 Object {
   "children": Array [
     Object {
@@ -138,7 +138,7 @@ series: \\"My Title Series\\"",
 }
 `;
 
-exports[`gatsby-remark-series resolves options before sending to generate-toc 1`] = `
+exports[`gatsby-remark-series/remark resolves options before sending to generate-toc 1`] = `
 Object {
   "children": Array [
     Object {
@@ -276,7 +276,7 @@ series: \\"My Title Series\\"",
 }
 `;
 
-exports[`gatsby-remark-series resolves options before sending to generate-toc 2`] = `
+exports[`gatsby-remark-series/remark resolves options before sending to generate-toc 2`] = `
 Object {
   "children": Array [
     Object {

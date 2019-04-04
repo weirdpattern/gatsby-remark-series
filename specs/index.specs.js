@@ -6,7 +6,7 @@ import grayMatter from "gray-matter";
 
 import plugin from "../src/index";
 
-describe("gatsby-remark-series", () => {
+describe("gatsby-remark-series/remark", () => {
   const reporter = {
     panic: message => {
       throw new Error(message);

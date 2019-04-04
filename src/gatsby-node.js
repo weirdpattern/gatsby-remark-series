@@ -5,10 +5,10 @@ const touched = {};
 
 /** @inheritdoc */
 export function createPages(
-  { getNodes, pathPrefix, actions: { createPage } },
+  { getNodes, pathPrefix, reporter, actions: { createPage } },
   pluginOptions
 ) {
-  const options = resolveOptions(pluginOptions);
+  const options = resolveOptions(pluginOptions, reporter);
   if (options.render.useLandingPage !== true) return;
 
   const series = getNodes()
@@ -37,7 +37,8 @@ export function createPages(
     const slug = resolveSeriesPath(
       options.resolvers.toSlug(key),
       pathPrefix,
-      options.render.landingPagePathPrefix
+      options.render.landingPagePathPrefix,
+      reporter
     );
 
     createPage({

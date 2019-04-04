@@ -10,10 +10,7 @@ module.exports = {
       }
     ]
   ],
-  plugins: [
-    "add-module-exports",
-    "@babel/plugin-transform-spread"
-  ],
+  plugins: ["add-module-exports", "@babel/plugin-transform-spread"],
   env: {
     test: {
       plugins: ["@babel/plugin-transform-runtime"]
