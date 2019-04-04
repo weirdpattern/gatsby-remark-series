@@ -3,7 +3,7 @@ import {
   resolveOptions,
   resolveSeriesPath,
   sortItems
-} from "../../src/misc/utils";
+} from "../src/utils";
 
 describe("utils", () => {
   const reporter = {

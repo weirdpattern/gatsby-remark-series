@@ -1,5 +1,5 @@
 import { resolve } from "path";
-import { resolveOptions, resolveSeriesPath, sortItems } from "./misc/utils";
+import { resolveOptions, resolveSeriesPath, sortItems } from "./utils";
 
 const touched = {};
 

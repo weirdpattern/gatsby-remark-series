@@ -1,5 +1,6 @@
 import { resolve } from "path";
-import { DefaultOptions } from "../src/misc/utils";
+
+import { DefaultOptions } from "../src/utils";
 import { createPages, onCreateNode } from "../src/gatsby-node";
 
 describe("gatsby-remark-series/gatsby-node", () => {
