@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "version": "0.0.1",
-  "name": "gatsby-remark-series-toc",
+  "name": "gatsby-remark-series",
   "description": "Gatsby remark plugin that creates table of contents for series",
   "author": {
     "name": "Patricio Trevino",
