@@ -72,7 +72,8 @@
   },
   "dependencies": {
     "lodash.defaultsdeep": "^4.6.0",
-    "lodash.kebabcase": "^4.1.1"
+    "lodash.kebabcase": "^4.1.1",
+    "unist-util-visit": "^1.4.0"
   },
   "peerDependencies": {
     "gatsby": "*",

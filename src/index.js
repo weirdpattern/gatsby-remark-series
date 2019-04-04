@@ -1,5 +1,6 @@
-import generateTOC from "./misc/generate-toc";
-import { resolveOptions } from "./misc/utils";
+import visit from "unist-util-visit";
+
+import { resolveOptions, resolveSeriesPath, sortItems } from "./misc/utils";
 
 /**
  * @typedef {Object} Resolvers
@@ -100,6 +101,76 @@ import { resolveOptions } from "./misc/utils";
  * @property {string} series The name of the series.
  */
 
+const localCache = {};
+
+/**
+ * Validates the context of the request.
+ * @param {GatsbyNode} markdownNode The gatsby node to be used.
+ * @param {PluginOptions} options The plugin options to be used.
+ * @returns {boolean} True if the context is valid; false otherwise.
+ */
+function validContext(markdownNode, options) {
+  const series = options.resolvers.series(markdownNode);
+  if (series == null) return false;
+
+  return true;
+}
+
+/**
+ * Gets all nodes associated to a series.
+ * @param {GatsbyContext} context The properties from context.
+ * @param {PluginOptions} options The plugin options to be used.
+ * @returns {Array<Object>} The nodes in the series.
+ */
+function getSeriesItems(
+  {
+    createContentDigest,
+    getNodes,
+    markdownNode
+  },
+  options
+) {
+  const series = options.resolvers.series(markdownNode);
+  const cacheKey = createContentDigest(series);
+
+  // cache gets cleared on every build, but that should be enough
+  // to prevent siblings from unnecessarily rebuilding the list.
+  let items = localCache[cacheKey];
+  if (items == null) {
+    items =
+      getNodes()
+
+      // gets markdown remark elements that have a series
+      .filter(
+        node =>
+          node.internal.type === "MarkdownRemark" &&
+          options.resolvers.series(node) === series
+      )
+
+      // map to something meaningful
+      .map(node => {
+        return {
+          title: node.frontmatter.title,
+          slug: options.resolvers.slug(node),
+          date: options.resolvers.date(node),
+          draft: options.resolvers.draft(node),
+          order: options.resolvers.order(node),
+          series: options.resolvers.series(node)
+        };
+      })
+
+      // sort
+      // 1. order if available
+      // 2. date if available
+      // 3. title
+      .sort(sortItems);
+
+    localCache[cacheKey] = items;
+  }
+
+  return items;
+}
+
 /**
  * Handles the markdown AST.
  * @param {RemarkPluginContext} context The remark plugin context.
@@ -107,5 +178,34 @@ import { resolveOptions } from "./misc/utils";
  * @returns {*} The markdown ast.
  */
 export default (context, pluginOptions) => {
-  return generateTOC(context, resolveOptions(pluginOptions, context.reporter));
+  const options = resolveOptions(pluginOptions, context.reporter);
+
+  return visit(context.markdownAST, "html", node => {
+    if (node.value !== options.mark) return;
+    if (!validContext(node, options)) return context.markdownAST;
+
+    const series = options.resolvers.series(node);
+    const items = getSeriesItems(context, options);
+
+    // path is only meaningful (and available to the developer)
+    // when a landing page is requested
+    const path =
+      options.render.useLandingPage === true
+        ? resolveSeriesPath(
+            options.resolvers.toSlug(series),
+            context.pathPrefix,
+            options.render.landingPagePathPrefix
+          )
+        : null;
+
+    node.value = options.render.template({
+      name: series,
+      slug: path,
+      items: items,
+      pluginOptions: options,
+      markdownNode: node
+    });
+
+    return context.markdownAST;
+  });
 };
