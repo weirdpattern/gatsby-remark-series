@@ -59,20 +59,16 @@ describe("utils", () => {
         expect(resolved.render.useLandingPage).toBe(
           DefaultOptions.render.useLandingPage
         );
-
-        expect(resolved.render.mode).toBe(DefaultOptions.render.mode);
       }
     );
 
     test.each([
-      [{ mode: 1 }, "mode must be of type string"],
       [{ placeholder: 1 }, "placeholder must be of type string"],
       [{ template: "" }, "template must be of type function"],
       [{ useLandingPage: "no" }, "useLandingPage must be of type boolean"]
     ])("throws error when a type in render doesn't match", (value, message) => {
       const render = Object.assign(
         {
-          mode: "inline",
           placeholder: "bottom",
           template: () => {},
           useLandingPage: false

@@ -1,6 +1,6 @@
 {
   "license": "MIT",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "name": "gatsby-remark-series",
   "description": "Gatsby remark plugin that creates table of contents for series",
   "author": {
@@ -57,7 +57,7 @@
     "eslint-plugin-filenames": "^1.3.2",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jest": "^22.4.1",
-    "eslint-plugin-jsdoc": "^4.7.0",
+    "eslint-plugin-jsdoc": "^4.8.0",
     "eslint-plugin-prettier": "^3.0.1",
     "gray-matter": "^4.0.2",
     "husky": "^1.3.1",

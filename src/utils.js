@@ -50,7 +50,6 @@ export const DefaultOptions = {
     toSlug: series => kebabCase(series)
   },
   render: {
-    mode: "inline",
     placeholder: "bottom",
     template: DefaultTemplate,
     useLandingPage: false
@@ -79,7 +78,6 @@ function assertType(type, name, value, reporter) {
 export function resolveOptions(pluginOptions, reporter) {
   const options = defaultsDeep({}, pluginOptions, DefaultOptions);
 
-  assertType("string", "mode", options.render.mode, reporter);
   assertType("string", "placeholder", options.render.placeholder, reporter);
   assertType("function", "template", options.render.template, reporter);
 
@@ -90,7 +88,6 @@ export function resolveOptions(pluginOptions, reporter) {
     reporter
   );
 
-  options.render.mode = options.render.mode.toLowerCase();
   options.render.placeholder = options.render.placeholder.toLowerCase();
 
   assertType("function", "slug", options.resolvers.slug, reporter);
