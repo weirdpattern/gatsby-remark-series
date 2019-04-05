@@ -62,7 +62,7 @@ import { resolveOptions, resolveSeriesPath, sortItems } from "./utils";
 /**
  * @typedef {Object} Render
  * @property {"both" | "top" | "bottom" | string} placeholder
- *    The location for the toc.
+ *    The location where the toc should be rendered.
  *    Possible values: both | top | bottom | string
  *    Default: bottom
  * @property {Template} template
@@ -231,7 +231,11 @@ export default (context, pluginOptions = {}) => {
 
   if (!fixedPlaceholders.includes(options.render.placeholder)) {
     visit(context.markdownAST, "html", node => {
-      if (node.value.toLowerCase() !== options.render.placeholder) return;
+      if (
+        node.value.toLowerCase() !== `<!-- ${options.render.placeholder} -->`
+      ) {
+        return;
+      }
 
       const toc = createTOCNode({
         options,

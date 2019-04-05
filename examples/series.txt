@@ -1,0 +1,62 @@
+import * as React from "react";
+
+import { graphql } from "gatsby";
+
+import Layout from "../components/Layout";
+import { Query, LayoutProps } from "../interfaces";
+
+/**
+ * Properties of the post page.
+ * @typedef {Query<PostProps>} Props
+ *
+ * @private
+ * @interface
+ */
+interface Props extends Query<LayoutProps> {
+  pageContext: {
+    name: string;
+    items: { [key: string]: any }[];
+  };
+}
+
+/**
+ * SeriesTemplate component.
+ *
+ * @public
+ * @class
+ */
+export default class SeriesTemplate extends React.Component<Props, {}> {
+  /** @inheritdoc */
+  public render(): React.ReactNode {
+    const { name, items } = this.props.pageContext;
+    const list = items.map((item, index) => {
+      console.log(item);
+      const inner =
+        item.draft !== true ? <a href={item.slug}>{item.title}</a> : item.title;
+
+      return <li key={index}>{inner}</li>;
+    }, "");
+
+    return (
+      <Layout
+        index={this.props.data.search.index}
+        metadata={this.props.data.site.metadata}
+        supportedActions={["back", "search"]}
+      >
+        <h1>{name}</h1>
+        <ol>{list}</ol>
+      </Layout>
+    );
+  }
+}
+
+export const query = graphql`
+  query {
+    site {
+      ...SiteMetadataFragment
+    }
+    search: siteSearchIndex {
+      index
+    }
+  }
+`;

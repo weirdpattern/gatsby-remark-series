@@ -122,7 +122,7 @@ describe("gatsby-remark-series/remark", () => {
   test("replaces children's value when dynamic placeholder is used", async () => {
     const [postMarkdownAST] = await getSeriesMarkdown(
       "./specs/files/series-dynamic.md",
-      defaultsDeep({ render: { placeholder: "<!-- TOC -->" } }, DefaultOptions)
+      defaultsDeep({ render: { placeholder: "toc" } }, DefaultOptions)
     );
 
     expect(postMarkdownAST).toMatchSnapshot();
