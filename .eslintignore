@@ -1,5 +1,7 @@
 npm
-dist
 build
 coverage
 node_modules
+index.js
+utils.js
+gatsby-node.js
