@@ -14,9 +14,11 @@
   "bugs": {
     "url": "https://github.com/weirdpattern/gatsby-remark-series-toc/issues"
   },
-  "main": "dist/index.js",
+  "main": "index.js",
   "files": [
-    "dist"
+    "index.js",
+    "gatsby-node.js",
+    "utils.js"
   ],
   "keywords": [
     "gatsby",
@@ -30,8 +32,9 @@
     "plugin"
   ],
   "scripts": {
-    "build": "rimraf dist && babel src --out-dir dist",
-    "clean": "npx rimraf node_modules dist build",
+    "clean-dist": "npx rimraf index.js utils.js gatsby-node.js",
+    "build": "yarn run clean-dist && babel src --out-dir .",
+    "clean": "yarn run clean-dist && npx rimraf node_modules build",
     "commit": "commit",
     "format": "prettier --write '*.{js,jsx,md}'",
     "lint": "eslint . --ext .js,.jsx",
