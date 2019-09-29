@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.2](https://github.com/weirdpattern/gatsby-remark-series/compare/v1.0.1...v1.0.2) (2019-09-29)
+
+### Bug Fixes
+
+- **package.json:** fixed 'Unable to find plugin' ([62caa3a](https://github.com/weirdpattern/gatsby-remark-series/commit/62caa3a))
+
 ### [1.0.1](https://github.com/weirdpattern/gatsby-remark-series-toc/compare/v1.0.0...v1.0.1) (2019-07-22)
 
 ### Build System

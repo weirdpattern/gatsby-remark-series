@@ -1,6 +1,6 @@
 {
   "license": "MIT",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "name": "gatsby-remark-series",
   "description": "Gatsby remark plugin that creates table of contents for series",
   "author": {
