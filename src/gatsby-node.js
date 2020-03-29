@@ -81,7 +81,7 @@ export function onCreateNode(
     // by setting a random contentDigest
     for (const sibling of siblings) {
       sibling.internal.contentDigest = createContentDigest(
-        new Date().getTime()
+        new Date().getTime().toString()
       );
 
       touched[series].add(sibling.internal.contentDigest);
